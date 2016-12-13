@@ -1,28 +1,65 @@
-.content-div {
-  min-height: 800px;
-  background-color: grey;
+.upper-index-header {
+  min-height: 60px;
+  background-color: #222222;
 }
-.left-sidebar {
-  min-height: 800px;
-  background-color: white;
-  padding-top: 5%;
+.index-header {
+  min-height: 250px;
+  background-color: #2d2d2d;
 }
-.playground {
-  min-height: 800px;
-  background-color: orange;
+.index-title {
+  color: white;
+  font-size: 5em;
 }
-.toolbar {
-  min-height: 150px;
+.index-sub-title {
+  color: #61dafb;
+  font-weight: bold;
 }
-.playground-footer {
-  min-height: 100px;
-  background-color: black;
+.blue-title {
+  color: #61dafb;
 }
-.budget-sidebar {
-  margin-bottom: 60px;
-}
-.central-toolbar .row,
-.right-toolbar .row {
-  min-height: 40px;
+.user-input {
   padding-top: 20px;
+  background-color: #2d2d2d;
+  height: 600px;
+}
+.structure-map {
+  background-color: #2d2d2d;
+  height: 600px;
+}
+.disjoiner {
+  height: 40px;
+}
+.form-group {
+  color: white;
+}
+.logo {
+  padding-top: 20px;
+  margin-left: -160px;
+}
+.white {
+  color: white;
+}
+.structure-content {
+  padding: 40px;
+}
+.input-group {
+  margin-bottom: 15px;
+  float: left;
+}
+.reviewBox {
+  min-width: 60px;
+  width: fit-content;
+  background-color: white;
+  color: black;
+  border-radius: 5%;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  font-weight: bold;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.standardDiv {
+  min-height: 80px;
 }
