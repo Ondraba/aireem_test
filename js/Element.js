@@ -1,7 +1,8 @@
 class Element{
     constructor() {
-      this.name =  '';
-      this.airremID = null;
+        this.name =  '';
+        this.aireemID = null;
+        this.aireemDA =  null;
     	this.background;
     	this.height = elementOptionsInstance.options.basics.height;
     	this.classArray = [];
@@ -17,6 +18,11 @@ class Element{
     getAireemID(){
       return this.aireemID;
     }
+
+    getAireemDA(){
+        return this.aireemDA;
+    }
+
     getBackground(){
     	return this.background;
     }
@@ -27,6 +33,10 @@ class Element{
 
     getClass(index){
     	return this.classArray[index];
+    }
+
+    getClassArray(){
+        return this.classArray;
     }
 
     getDataAttr(index){
@@ -47,6 +57,10 @@ class Element{
       this.aireemID = aireemID;
     }
 
+    setAireemDA(aireemDA)
+    {
+        this.aireemDA = aireemDA;
+    }
 
     setBackground(background)
     {

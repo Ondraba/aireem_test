@@ -20,10 +20,10 @@ class UserInterface {
        {
          if ($('.js_class-input').val() != '') {
 
-          var elementName = $('.js_name-input').val();
+
           var elementClass= $('.js_class-input').val();
 
-          t.createElementMask(elementName, elementClass);
+          t.createElementMask(elementClass);
           $('.js_class-input').val('');
             }
          });
@@ -32,17 +32,16 @@ class UserInterface {
 
 
 
-     createElementMask(elementName, elementClass){
+     createElementMask(elementClass){
        var t = this;
 
-       t.pushToArray(elementName, t.newElementNamesArray);
+
        t.pushToArray(elementClass, t.newElementClassArray)
-       t.pustItemToSelectList(elementName, $('.js_input-mother-select-list'));
        t.pustItemToSelectList(elementClass, $('.js_input-class-select-list'));
 
        var newReviewBox = $(document.createElement('div'));
 
-     	 newReviewBox.addClass('reviewBox');
+       newReviewBox.addClass('reviewBox');
        newReviewBox.css('background-color', helpersInstnace.getRandomColor());
        newReviewBox.css('height', elementOptionsInstance.options.structureMapOptions.height);
 
@@ -76,6 +75,7 @@ class UserInterface {
        {
 
          var elementName = $('.js_name-input').val();
+         t.pustItemToSelectList(elementName, $('.js_input-mother-select-list'));
          var elementClassArray= t.newElementClassArray;
          var elementMother=$('.js_input-mother-select-list').val();
          structureVendorInstance.createElement(
@@ -83,7 +83,6 @@ class UserInterface {
               elementClassArray,
               elementMother
             );
-            console.log(t.newElementClassArray);
             t.emptyMask();
         });
 

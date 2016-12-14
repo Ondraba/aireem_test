@@ -5,44 +5,44 @@
     }
 
 
-    createElement(elementName, classArray, elementMother){
-      var t = this;
-      t.counterInc();
+    createElement(elementName, classArray, elementMother) {
+        var t = this;
+        t.counterInc();
 
-      var newElementInstance = new Element();
-      newElementInstance.setName(elementName);
-      newElementInstance.setAireemID(t.counter);
-      for(var i = 0; i < classArray.length; i++){
-        newElementInstance.setClass(classArray[i]);
-      }
-      newElementInstance.setMother(elementMother);
+        var newElementInstance = new Element();
+        newElementInstance.setName(elementName);
+        newElementInstance.setAireemID(t.counter);
+        newElementInstance.setAireemDA('aireemDA');
+        for (var i = 0; i < classArray.length; i++) {
+            newElementInstance.setClass(classArray[i]);
+        }
+        console.log('ehm' + newElementInstance.getClassArray());
+        newElementInstance.setMother(elementMother);
+        t.elementsArray.push(newElementInstance);
 
+        t.generatePreview(newElementInstance);
+    }
 
-    	var newElement = $(document.createElement('div'));
-      var elementMotherVar = $('#' + elementMother);
-      newElement.attr('id',elementName);
-      newElement.attr('aireemId', t.counter);
-      newElement.data('aireemDA', t.counter);
-      console.log(newElement.data('aireemDA'));
-      for(var i = 0; i < classArray.length; i++){
-        newElement.addClass(classArray[i]);
-      }
-      if (elementMother != elementOptionsInstance.options.elementInheritence.defaultStructureRoot){
-          newElement.height(30);
-          newElement.css("background-color","orange");
-          newElement.css("margin-bottom","5px");
-          console.log('mama elementu' + elementMother);
-      }
+    generatePreview(newElementInstance){
+      var newElement = $(document.createElement('div'));
+      var elementMotherVar = $('#' + newElementInstance.getMother());
+      newElement.attr('id',newElementInstance.getName());
+      newElement.attr('aireemId', newElementInstance.getAireemID());
+      newElement.attr('data-aireemDA', newElementInstance.getAireemDA());
+      if (newElementInstance.getMother() != elementOptionsInstance.options.elementInheritence.defaultStructureRoot){
+         newElement.addClass('innerDiv');}
       else {
-          newElement.addClass('standardDiv');
-          newElement.css("background-color","white");
-          newElement.css("margin-bottom","10px");
-      }
+          newElement.addClass('standardDiv');}
+
+        for (var i = 0; i < newElementInstance.getClassArray().length; i++){
+            newElement.addClass(newElementInstance.getClassArray()[i]);
+        }
+
     	this.appendElement(newElement, elementMotherVar);
     }
 
+
     appendElement(element, elementMother){
-      console.log(element);
     	elementMother.append(element);
     }
 
