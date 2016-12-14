@@ -5,6 +5,8 @@ class UserInterface {
       this.summonStructureVendor();
       this.newElementNamesArray= [];
       this.newElementClassArray = [];
+      this.localAppOptionsInstance = appOptionsInstance;
+      this.fillCreativeArea();
     }
 
 
@@ -13,16 +15,44 @@ class UserInterface {
        $('.js_input-mother-select-list').append(("<option value='" + defaultMother + "'>" + defaultMother + "</option>"));
      }
 
+     fillCreativeArea(){
+       var t = this;
+       var favouritesArea = $('.favourites-area');
+       var favourites = t.localAppOptionsInstance.options.creativeArea.favourites;
+       t.fillXs(favouritesArea, favourites);
+       t.fillSm(favouritesArea, favourites);
+
+
+     }
+
+     fillXs(favouritesArea, favourites){
+       for(var i = 0; i < favourites.xsGrid.length; i++){
+       var newFavouriteBox = $(document.createElement('div'));
+       newFavouriteBox.addClass('standard-favourite-box');
+       newFavouriteBox.addClass('xs');
+       var newFavouriteBoxText = $(document.createElement('span'));
+       newFavouriteBoxText.text(favourites.xsGrid[i]);
+       newFavouriteBox.append(newFavouriteBoxText);
+       favouritesArea.append(newFavouriteBox);}
+     }
+
+     fillSm(favouritesArea, favourites){
+       for(var i = 0; i < favourites.smGrid.length; i++){
+       var newFavouriteBox = $(document.createElement('div'));
+       newFavouriteBox.addClass('standard-favourite-box');
+       var newFavouriteBoxText = $(document.createElement('span'));
+       newFavouriteBoxText.text(favourites.smGrid[i]);
+       newFavouriteBox.append(newFavouriteBoxText);
+       favouritesArea.append(newFavouriteBox);}
+     }
+
 
      getElement(){
        var t = this;
        $('.js_class-button').on('click', function()
        {
          if ($('.js_class-input').val() != '') {
-
-
           var elementClass= $('.js_class-input').val();
-
           t.createElementMask(elementClass);
           $('.js_class-input').val('');
             }
@@ -34,21 +64,15 @@ class UserInterface {
 
      createElementMask(elementClass){
        var t = this;
-
-
        t.pushToArray(elementClass, t.newElementClassArray)
        t.pustItemToSelectList(elementClass, $('.js_input-class-select-list'));
-
        var newReviewBox = $(document.createElement('div'));
-
        newReviewBox.addClass('reviewBox');
        newReviewBox.css('background-color', helpersInstnace.getRandomColor());
        newReviewBox.css('height', elementOptionsInstance.options.structureMapOptions.height);
-
        var newReviewBoxText = $(document.createElement('span'));
        newReviewBoxText.text('.'+ elementClass);
        newReviewBox.append(newReviewBoxText);
-
        elementOptionsInstance.options.elementInheritence.defaultMaskRoot.append(newReviewBox);
      }
 
@@ -63,8 +87,8 @@ class UserInterface {
 
      emptyMask(){
           var t = this;
-          t.newElementNamesArray.slice(0);
-          t.newElementClassArray.slice(0);
+          t.newElementNamesArray.splice(0);
+          t.newElementClassArray.splice(0);
           $('.element-review').empty();
      }
 
