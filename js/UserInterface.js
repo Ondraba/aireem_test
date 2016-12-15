@@ -7,6 +7,7 @@ class UserInterface {
       this.newElementClassArray = [];
       this.localAppOptionsInstance = appOptionsInstance;
       this.fillCreativeArea();
+      this.getFavourites();
     }
 
 
@@ -21,8 +22,6 @@ class UserInterface {
        var favourites = t.localAppOptionsInstance.options.creativeArea.favourites;
        t.fillXs(favouritesArea, favourites);
        t.fillSm(favouritesArea, favourites);
-
-
      }
 
      fillXs(favouritesArea, favourites){
@@ -40,6 +39,8 @@ class UserInterface {
        for(var i = 0; i < favourites.smGrid.length; i++){
        var newFavouriteBox = $(document.createElement('div'));
        newFavouriteBox.addClass('standard-favourite-box');
+       newFavouriteBox.addClass('sm');
+       newFavouriteBox.addClass('sm');
        var newFavouriteBoxText = $(document.createElement('span'));
        newFavouriteBoxText.text(favourites.smGrid[i]);
        newFavouriteBox.append(newFavouriteBoxText);
@@ -57,6 +58,14 @@ class UserInterface {
           $('.js_class-input').val('');
             }
          });
+       }
+
+       getFavourites(){
+           var t = this;
+           $(document).on("click",".standard-favourite-box", function ()
+           {
+           t.createElementMask($(this).children('span').text());
+           });
        }
 
 
