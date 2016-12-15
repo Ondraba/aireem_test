@@ -68,6 +68,12 @@ class UserInterface {
            });
        }
 
+       elementEfects(){
+           $('#structure-content').each(function () {
+              $(this).css('border','1px solid black');
+           });
+       }
+
 
 
 
@@ -115,8 +121,9 @@ class UserInterface {
               elementName,
               elementClassArray,
               elementMother
-            );
-            t.emptyMask();
+              );
+           t.elementEfects();
+                t.emptyMask();
         });
 
      }

@@ -16,11 +16,11 @@
         for (var i = 0; i < classArray.length; i++) {
             newElementInstance.setClass(classArray[i]);
         }
-        console.log('ehm' + newElementInstance.getClassArray());
         newElementInstance.setMother(elementMother);
         t.elementsArray.push(newElementInstance);
 
         t.generatePreview(newElementInstance);
+        console.log('created')
     }
 
     generatePreview(newElementInstance){
