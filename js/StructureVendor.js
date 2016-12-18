@@ -37,7 +37,7 @@
         for (var i = 0; i < newElementInstance.getClassArray().length; i++){
             newElement.addClass(newElementInstance.getClassArray()[i]);
         }
-
+      newElement.addClass('aireemContainer');  
     	this.appendElement(newElement, elementMotherVar);
     }
 

@@ -8,6 +8,8 @@ class UserInterface {
       this.localAppOptionsInstance = appOptionsInstance;
       this.fillCreativeArea();
       this.getFavourites();
+      this.removeFromElementMask();
+      this.returnProps();
     }
 
 
@@ -70,7 +72,7 @@ class UserInterface {
 
        elementEfects(){
            $('#structure-content').each(function () {
-              $(this).css('border','1px solid black');
+              $(this).children('div').css('border','1px solid black');
            });
        }
 
@@ -80,7 +82,7 @@ class UserInterface {
      createElementMask(elementClass){
        var t = this;
        t.pushToArray(elementClass, t.newElementClassArray)
-       t.pustItemToSelectList(elementClass, $('.js_input-class-select-list'));
+       t.pushItemToSelectList(elementClass, $('.js_input-class-select-list'));
        var newReviewBox = $(document.createElement('div'));
        newReviewBox.addClass('reviewBox');
        newReviewBox.css('background-color', helpersInstnace.getRandomColor());
@@ -91,12 +93,42 @@ class UserInterface {
        elementOptionsInstance.options.elementInheritence.defaultMaskRoot.append(newReviewBox);
      }
 
+     removeFromElementMask(){
+       var t = this;
+       $(document).on('click','.reviewBox',function () {
+         for(var i = 0; i < t.newElementClassArray.length; i++){
+        if($(this).children('span').text() == '.' + t.newElementClassArray[i]){
+          $(this).remove();
+          delete t.newElementClassArray[i];
+        }
+       }
+     });
+   }
+
+
+   returnProps(){
+     var t = this;
+     $(document).on('click','.aireemContainer',function () {
+       $('.element-review').html('');
+       for(var i = 0; i < structureVendorInstance.elementsArray.length; i++){
+       var classItem =  structureVendorInstance.elementsArray[i];
+       if($(this).attr('aireemid') == classItem.getAireemID()){
+          $('.js_name-input').val(classItem.getName());
+         console.log(classItem.getAireemID());
+         for(var x = 0; x < classItem.getClassArray().length; x++){
+          t.createElementMask(classItem.getClassArray()[x]);
+         }
+        }
+       }
+     });
+   }
+
      pushToArray(value, array){
        var t = this;
        array.push(value);
      }
 
-     pustItemToSelectList(value, selectList){
+     pushItemToSelectList(value, selectList){
           selectList.append("<option value='" + value+ "'>" + value + "</option>")
      }
 
@@ -105,6 +137,7 @@ class UserInterface {
           t.newElementNamesArray.splice(0);
           t.newElementClassArray.splice(0);
           $('.element-review').empty();
+          $('.js_name-input').val('');
      }
 
 
@@ -112,25 +145,70 @@ class UserInterface {
        var t = this;
        $('.js_sumbit_new_element').on('click', function()
        {
-
          var elementName = $('.js_name-input').val();
-         t.pustItemToSelectList(elementName, $('.js_input-mother-select-list'));
-         var elementClassArray= t.newElementClassArray;
-         var elementMother=$('.js_input-mother-select-list').val();
-         structureVendorInstance.createElement(
-              elementName,
-              elementClassArray,
-              elementMother
-              );
-           t.elementEfects();
-                t.emptyMask();
+         if(elementName != '') {
+         if (structureVendorInstance.elementsArray.length > 0){
+            t.newVerifiedStructure(elementName);
+          }
+          else {
+            t.newStructure(elementName);
+            console.log('nula');
+          }
+          t.elementEfects();
+          t.emptyMask();
+          }
         });
+      }
 
+      newStructure(elementName){
+            var t = this;
+              t.pushItemToSelectList(elementName, $('.js_input-mother-select-list'));
+              var elementClassArray= t.newElementClassArray;
+              var elementMother=$('.js_input-mother-select-list').val();
+              structureVendorInstance.createElement(
+                   elementName,
+                   elementClassArray,
+                   elementMother
+                 );
+            }
+
+      newVerifiedStructure(elementName){
+        var t = this;
+        var alreadyCreated = false;
+        for(var i = 0; i < structureVendorInstance.elementsArray.length; i++){
+            console.log('news');
+             var elementItem = structureVendorInstance.elementsArray[i];
+              if (elementName == elementItem.getName()){
+                alreadyCreated = true;
+                t.editExistingStructure(elementItem);
+              }
+              else {
+                console.log('alreadyCreated');
+              }
+            }
+            if (!alreadyCreated){
+              t.newStructure(elementName);
+            }
+          }
+
+        editExistingStructure(elementItem){
+          var t = this;
+           $('#structure-content').each(function () {
+          if (elementItem.getAireemID() == $(this).children('div').attr('aireemid')){
+          console.log(elementItem.getAireemID());
+          console.log($(this).children('div').attr('aireemid'));
+          let difference = t.newElementClassArray.filter(x => elementItem.getClassArray().indexOf(x) == -1);
+          console.log(difference);
+        }
+        });
+        }
+
+
+     editCreatedByVendor(){
      }
 
 
      rerenderByExists(){
-
      }
 
 
