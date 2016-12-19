@@ -1,20 +1,22 @@
  class StructureVendor {
     constructor() {
       this.elementsArray = [];
-      this.counter = 0;
     }
 
 
-    createElement(elementName, classArray, elementMother) {
+    createElement(elementName, classArray, attrArray, elementMother) {
         var t = this;
-        t.counterInc();
+       helpersInstnace.counterInc();
 
         var newElementInstance = new Element();
         newElementInstance.setName(elementName);
-        newElementInstance.setAireemID(t.counter);
+        newElementInstance.setAireemID(helpersInstnace.counter);
         newElementInstance.setAireemDA('aireemDA');
         for (var i = 0; i < classArray.length; i++) {
             newElementInstance.setClass(classArray[i]);
+        }
+        for (var x = 0; x < attrArray.length; x++) {
+            newElementInstance.setDataAttr(attrArray[x]);
         }
         newElementInstance.setMother(elementMother);
         t.elementsArray.push(newElementInstance);
@@ -37,6 +39,9 @@
         for (var i = 0; i < newElementInstance.getClassArray().length; i++){
             newElement.addClass(newElementInstance.getClassArray()[i]);
         }
+        for (var x = 0; x < newElementInstance.getDataAttrArray().length; x++){
+            newElement.attr(newElementInstance.getDataAttrArray()[x]);
+        }
       newElement.addClass('aireemContainer');  
     	this.appendElement(newElement, elementMotherVar);
     }
@@ -46,8 +51,5 @@
     	elementMother.append(element);
     }
 
-    counterInc(){
-      var t = this;
-      t.counter++;
-    }
+
 }

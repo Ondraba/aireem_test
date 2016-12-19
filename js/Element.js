@@ -43,6 +43,10 @@ class Element{
     	return this.dataAttrArray[index];
     }
 
+    getDataAttrArray(){
+        return this.dataAttrArray;
+    }
+
     getChild(index){
     	return this.childs[index];
     }
