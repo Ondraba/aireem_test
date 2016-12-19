@@ -32,6 +32,7 @@ class UserInterface {
        var favourites = t.localAppOptionsInstance.options.creativeArea.favourites;
        t.fillXs(favouritesArea, favourites);
        t.fillSm(favouritesArea, favourites);
+       t.fillLg(favouritesArea, favourites);
      }
 
      fillXs(favouritesArea, favourites){
@@ -50,12 +51,23 @@ class UserInterface {
        var newFavouriteBox = $(document.createElement('div'));
        newFavouriteBox.addClass('standard-favourite-box');
        newFavouriteBox.addClass('sm');
-       newFavouriteBox.addClass('sm');
        var newFavouriteBoxText = $(document.createElement('span'));
        newFavouriteBoxText.text(favourites.smGrid[i]);
        newFavouriteBox.append(newFavouriteBoxText);
        favouritesArea.append(newFavouriteBox);}
      }
+
+     fillLg(favouritesArea, favourites){
+       for(var i = 0; i < favourites.lgGrid.length; i++){
+       var newFavouriteBox = $(document.createElement('div'));
+       newFavouriteBox.addClass('standard-favourite-box');
+       newFavouriteBox.addClass('lg');
+       var newFavouriteBoxText = $(document.createElement('span'));
+       newFavouriteBoxText.text(favourites.lgGrid[i]);
+       newFavouriteBox.append(newFavouriteBoxText);
+       favouritesArea.append(newFavouriteBox);}
+     }
+
 
 
      getElement(){
@@ -109,27 +121,26 @@ class UserInterface {
          var maskHolder = '';
        $(document).on('click','.reviewBox',function () {
        maskHolder =  $(this).attr('dataelemmask');
-           console.log(maskHolder);
+
        childrenClass =  $(this).children('span').text();
         for(var i = 0; i < t.newElementClassArray.length; i++){
         if($(this).children('span').text() == '.' + t.newElementClassArray[i]){
           $(this).remove();
          t.newElementClassArray.splice(i, 1);
         }
-             $('.aireemContainer').each(function () {
                  for (var i = 0; i < structureVendorInstance.elementsArray.length; i++){
                      for (var x = 0; x < structureVendorInstance.elementsArray[i].classArray.length; x++){
-                     if($(this).attr('aireemid') == maskHolder){
-                         console.log(structureVendorInstance.elementsArray[i].classArray[x]);
                          if(childrenClass == '.' + structureVendorInstance.elementsArray[i].classArray[x]){
                             structureVendorInstance.elementsArray[i].classArray.splice(x,1);
+                            delete structureVendorInstance.elementsArray[i].classArray[x];
+                            console.log(  structureVendorInstance.elementsArray[i].classArray);
                              var childrenClassClear = childrenClass.replace(/\./g, '' );
-                             $(this).removeClass(childrenClassClear);
-                         }
+                             console.log($(".aireemContainer[aireemid='" + maskHolder + "']"));
+                            $(".aireemContainer[aireemid='" + maskHolder + "']").removeClass(childrenClassClear);
                      }
                          }
                      }
-             });
+
        }
      });
    }
@@ -166,6 +177,7 @@ class UserInterface {
           var t = this;
           t.newElementNamesArray.splice(0);
           t.newElementClassArray.splice(0);
+          console.log(t.newElementClassArray);
           $('.element-review').empty();
           $('.js_name-input').val('');
      }
@@ -219,21 +231,16 @@ class UserInterface {
             }
           }
 
+
         editExistingStructure(elementItem){
           var t = this;
-          $('#structure-content').each(function (){
-              var diffChildren = $(this).children('div');
-              if (elementItem.getAireemID() == diffChildren.attr('aireemid')){
-                  console.log(elementItem.getAireemID());
-                  console.log($(this).children('div').attr('aireemid'));
                   var difference = t.newElementClassArray.filter(x => elementItem.getClassArray().indexOf(x) == -1);
                       for (var i = 0; i < difference.length; i++){
-                          diffChildren.addClass(difference[i]);
+                          $(".aireemContainer[aireemid='" + elementItem.getAireemID() + "']").addClass(difference[i]);
                           elementItem.setClass(difference[i]);
-                          console.log(difference);
-                      }
+                          console.log(this);
             }
-        });
+
         }
 
 
